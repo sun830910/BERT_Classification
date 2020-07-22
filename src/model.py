@@ -19,15 +19,15 @@ from utils import data_loader, build_data_generator_input, data_generator
 
 class multi_clf_model(object):
     def __init__(self):
-        config = Config()
-        self.config_path = config.get("BERT_path", "config_path")
-        self.checkpoint_path = config.get("BERT_path", "checkpoint_path")
+        self.config = Config()
+        self.config_path = self.config.get("BERT_path", "config_path")
+        self.checkpoint_path = self.config.get("BERT_path", "checkpoint_path")
 
-        self.trainingSet_path = config.get("data_path", "trainingSet_path")
-        self.testingSet_path = config.get("data_path", "testingSet_path")
-        self.val_path = config.get("data_path", "valSet_path")
+        self.trainingSet_path = self.config.get("data_path", "trainingSet_path")
+        self.testingSet_path = self.config.get("data_path", "testingSet_path")
+        self.val_path = self.config.get("data_path", "valSet_path")
 
-        self.model_save_path = config.get("result", "model_save_path")
+        self.model_save_path = self.config.get("result", "model_save_path")
 
     def model(self, num_class, trainable):
         config_path = self.config_path
@@ -61,8 +61,10 @@ class multi_clf_model(object):
         # 测试集写好了
         # testing_data_list = build_data_generator_input(self.testingSet_path)
 
-        train_D = data_generator(training_data_list, shuffle=True)
-        valid_D = data_generator(val_data_list, shuffle=True)
+        max_length = self.config.get("training_rule", "max_length")
+
+        train_D = data_generator(training_data_list, max_length=max_length, shuffle=True)
+        valid_D = data_generator(val_data_list, max_length=max_length, shuffle=True)
         # test_D = data_generator(testing_data_list, shuffle=False)
 
         model = self.model(num_class, trainable)

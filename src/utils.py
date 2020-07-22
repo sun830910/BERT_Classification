@@ -68,14 +68,14 @@ class data_generator:
     """
     批量数据生成，减少内存消耗的写法
     """
-    def __init__(self, data, batch_size=32, shuffle=True):
+    def __init__(self, data, max_length, batch_size=32, shuffle=True):
         self.data = data
         self.batch_size = batch_size
         self.shuffle = shuffle
         self.steps = len(self.data) // self.batch_size
         if len(self.data) % self.batch_size != 0:
             self.steps += 1
-        self.maxlen = 300 # 不得大于512
+        self.maxlen = max_length # 不得大于512
         self.token_dict = {}
         self.load_token_dict()
         self.tokenizer = OurTokenizer(self.token_dict)

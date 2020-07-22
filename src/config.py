@@ -23,6 +23,10 @@ class Config(object):
                 "checkpoint_path": '../bert/chinese_L-12_H-768_A-12/bert_model.ckpt',
             },
 
+            "training_rule": {
+                "max_length": 300 # 输入序列长度，别超过512
+            },
+
             "result": {
                 "model_save_path": '../result/bert_keras.h5'
             }
