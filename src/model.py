@@ -75,4 +75,4 @@ class multi_clf_model(object):
             validation_data=valid_D.__iter__(),
             validation_steps=len(valid_D)
         )
-        model.save()
+        model.save(self.model_save_path, overwrite=True)
