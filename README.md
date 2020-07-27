@@ -1,6 +1,6 @@
 # BERT_Classification
 
-基于苏神的keras_bert构建一多分类BERT模型。  
+基于keras_bert构建一多分类BERT模型。  
 可用于文本多分类任务。
 
 ## 环境
