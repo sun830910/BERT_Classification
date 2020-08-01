@@ -28,7 +28,8 @@ class data_loader(object):
         返回分类种类的索引
         :return: 返回分类种类的字典
         """
-        categories = ["体育", "财经", "房产", "家居", "教育", "科技", "时尚", "时政", "游戏", "娱乐"]
+        # categories = ["体育", "财经", "房产", "家居", "教育", "科技", "时尚", "时政", "游戏", "娱乐"]
+        categories = ['电视剧', '娱乐', '动漫', '电影', '综艺', '教育', '网络电影', '纪录片', '财经', '片花', '音乐', '军事', '游戏', '资讯']
         cates_dict = dict(zip(categories, range(len(categories))))
         return cates_dict
 
@@ -129,9 +130,15 @@ class data_generator:
 def build_data_generator_input(file_path):
     loader = data_loader()
     data = loader.make_data(file_path)
+    num_class = len(loader.get_category_id())
     result = []
     for data_row in data:
         label = data_row[0]
         content = data_row[1]
-        result.append([to_categorical(label), content])
+        # 直接声明label维度大小，避免因样本不平衡导致输出维度与验证维度不吻合
+        result.append([to_categorical(label, num_classes=num_class), content])
     return np.array(result)
+
+if __name__ == '__main__':
+    test = data_loader()
+    print(test.make_data('../data/cgc/train.txt')[0])

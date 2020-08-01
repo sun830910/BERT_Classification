@@ -12,10 +12,15 @@ class Config(object):
     def __init__(self):
         self.config_dict = {
             "data_path": {
-                "vocab_path": "../data/cnews.vocab.txt",
-                "trainingSet_path": "../data/cnews.train.txt",
-                "valSet_path": "../data/cnews.val.txt",
-                "testingSet_path": "../data/cnews.test.txt"
+                # "vocab_path": "../data/cnews.vocab.txt",
+                # "trainingSet_path": "../data/cnews.train.txt",
+                # "valSet_path": "../data/cnews.val.txt",
+                # "testingSet_path": "../data/cnews.test.txt"
+
+                "vocab_path": "../data/cgc/vocab.txt",
+                "trainingSet_path": "../data/cgc/train.txt",
+                "valSet_path": "../data/cgc/valid.txt",
+                "testingSet_path": "../data/cgc/test.txt"
             },
 
             "BERT_path": {
@@ -24,7 +29,7 @@ class Config(object):
             },
 
             "training_rule": {
-                "max_length": 300 # 输入序列长度，别超过512
+                "max_length": 300, # 输入序列长度，别超过512
             },
 
             "result": {

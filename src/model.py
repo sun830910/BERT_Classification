@@ -55,20 +55,21 @@ class multi_clf_model(object):
 
     def train(self, num_class, epochs, trainable):
 
+
         # 训练数据、测试数据和标签转化为模型输入格式
         training_data_list = build_data_generator_input(self.trainingSet_path)
         val_data_list = build_data_generator_input(self.val_path)
         # 测试集写好了
-        # testing_data_list = build_data_generator_input(self.testingSet_path)
+        # testing_data_list = build_data_generator_input(self.testingSet_path, num_class)
 
         max_length = self.config.get("training_rule", "max_length")
 
         train_D = data_generator(training_data_list, max_length=max_length, shuffle=True)
         valid_D = data_generator(val_data_list, max_length=max_length, shuffle=True)
-        # test_D = data_generator(testing_data_list, shuffle=False)
+        # # test_D = data_generator(testing_data_list, shuffle=False)
 
         model = self.model(num_class, trainable)
-        model.fit_generator(
+        model.fit(
             train_D.__iter__(),
             steps_per_epoch=len(train_D),
             epochs=epochs,
@@ -76,3 +77,7 @@ class multi_clf_model(object):
             validation_steps=len(valid_D)
         )
         model.save(self.model_save_path, overwrite=True)
+
+if __name__ == '__main__':
+    bert_clf = multi_clf_model()
+    bert_clf.train(num_class=14, epochs=1, trainable=True)
